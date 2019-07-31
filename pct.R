@@ -1,4 +1,4 @@
-source("")
+source("https://raw.githubusercontent.com/ITSLeeds/go/master/setup_function.R")
 setup_R(pkgs = c("remotes",
                 "sf",
                 "tidyverse",
