@@ -35,8 +35,8 @@ course.
 Some extra help with ITS R courses:
 
   - [Installing R and R
-    Studio](https://github.com/ITSLeeds/go/blob/master/install.md) A
-    short guide to installing R and R Studio.
+    Studio](https://github.com/ITSLeeds/go/blob/master/docs/install.md)
+    A short guide to installing R and R Studio.
   - [Introduction to R]()
   - [Geocomputation with R](https://geocompr.robinlovelace.net/) A free
     book on how to do GIS in R.
