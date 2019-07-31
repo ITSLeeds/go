@@ -30,6 +30,17 @@ This simple command will check your computer, install all the necessary
 packages and tell you if your computer is ready to be used for the
 course.
 
+## More Information
+
+Some extra help with ITS R courses:
+
+  - [Installing R and R
+    Studio](https://github.com/ITSLeeds/go/blob/master/install.md) A
+    short guide to installing R and R Studio.
+  - [Introduction to R]()
+  - [Geocomputation with R](https://geocompr.robinlovelace.net/) A free
+    book on how to do GIS in R.
+
 ## How does it work?
 
 Go relies on two functions `source` which simply says run this code, and
