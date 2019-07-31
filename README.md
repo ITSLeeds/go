@@ -55,3 +55,11 @@ Go is a work in progress and we will add checks over time to make it
 more useful and to catch new types of set up problems as we encounter
 them. Please leave your feedback
 [here](https://github.com/ITSLeeds/go/issues).
+
+## Is it safe?
+
+You might be worried about running some unknown code from the internet
+on your computer. All the code in Go is open souce and in this repo. If
+you want to be extra safe simply download the `setup_function` from
+[here](https://github.com/ITSLeeds/go/blob/master/setup_function.R) and
+run though it yourself.
