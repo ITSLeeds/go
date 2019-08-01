@@ -40,7 +40,7 @@ setup_R <- function(rversion = 3.4,
   }
   
   if("devtools" %in% utils::installed.packages()[,"Package"]){
-    message("PASS: Devtools is installed")
+    message("    PASS: Devtools is installed")
   }else{
     stop("    Unable to install devtools try running install.packages('devtools')")
   }
