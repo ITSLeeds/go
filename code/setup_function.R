@@ -11,7 +11,20 @@ setup_R <- function(rversion = 3.4,
   
   log <- " "
   
-  message("Step 1 of 3: Check the basics")
+  message("Step 1 or 4: Pre Checks")
+  pkgs <- unique(pkgs)
+  pkgs_gh <- unique(pkgs_gh)
+  
+  if(any(pkgs_gh %in% pkgs)){
+    stop("Duplicated package names requested from CRAN and GitHub")
+  }
+  
+  if(any(c(pkgs, pkgs_gh) %in% loadedNamespaces())){
+    stop("Some packages that need updating are loaded, please restart R and run the setup again")
+  }
+  
+  
+  message("Step 2 of 4: Check the basics")
   Rv <- as.numeric(R.version$major) + as.numeric(R.version$minor) / 10 
   if(Rv >= rversion){
     message("PASS: R Version Check")
@@ -78,7 +91,7 @@ setup_R <- function(rversion = 3.4,
   }
   
   
-  message("Step 2 of 3: Install Packages")
+  message("Step 3 of 4: Install Packages")
   
   # Install Packages CRAN
   if(length(pkgs) > 0){
@@ -117,7 +130,7 @@ setup_R <- function(rversion = 3.4,
   }
   
   # Check Geocomputation
-  message("Step 3 of 3: Test geocomputation")
+  message("Step 4 of 4: Test geocomputation")
   
   # pct package
   if(all(c("sf","pct") %in% utils::installed.packages()[,"Package"] )){
