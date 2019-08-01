@@ -16,21 +16,21 @@ setup_R <- function(rversion = 3.4,
   pkgs_gh <- unique(pkgs_gh)
   
   if(any(pkgs_gh %in% pkgs)){
-    stop("Duplicated package names requested from CRAN and GitHub")
+    stop("    Duplicated package names requested from CRAN and GitHub")
   }
   
   if(any(c(pkgs, pkgs_gh) %in% loadedNamespaces())){
-    stop("Some packages that need updating are loaded, please restart R and run the setup again")
+    stop("    Some packages that need updating are loaded, please restart R and run the setup again")
   }
   
   
   message("Step 2 of 4: Check the basics")
   Rv <- as.numeric(R.version$major) + as.numeric(R.version$minor) / 10 
   if(Rv >= rversion){
-    message("PASS: R Version Check")
+    message("    PASS: R Version Check")
   }else{
     browseURL("https://cran.r-project.org/")
-    stop("Your version of R is not up to date, go to https://cran.r-project.org/ and download the latest version of R")
+    stop("    Your version of R is not up to date, go to https://cran.r-project.org/ and download the latest version of R")
     
   }
   
@@ -42,32 +42,32 @@ setup_R <- function(rversion = 3.4,
   if("devtools" %in% utils::installed.packages()[,"Package"]){
     message("PASS: Devtools is installed")
   }else{
-    stop("Unable to install devtools try running install.packages('devtools')")
+    stop("    Unable to install devtools try running install.packages('devtools')")
   }
   
   # Check for Rtools
   if (.Platform$OS.type == "windows") { 
     if(pkgbuild::find_rtools()){
-      message("PASS: RTools is installed")
+      message("    PASS: RTools is installed")
     }else{
       if(length(pkgs_gh) > 0){
         browseURL("https://cran.r-project.org/bin/windows/Rtools/")
-        stop("You need to install RTools https://cran.r-project.org/bin/windows/Rtools/ and download the latest stable version")
+        stop("    You need to install RTools https://cran.r-project.org/bin/windows/Rtools/ and download the latest stable version")
       }else{
         log <- c(log, "WARN: You don't have RTools installed, but have not requested any packages that require it")
-        message("PASS: RTools is not required")
+        message("    PASS: RTools is not required")
       }
     }
   }else{
-    message("PASS: RTools is not required on your OS")
+    message("    PASS: RTools is not required on your OS")
   }
   
   # Check for RStudio
   if(rstudioapi::isAvailable()){
-   message("PASS: You are using RStudio") 
+   message("    PASS: You are using RStudio") 
   }else{
     browseURL("https://www.rstudio.com/products/rstudio/download/")
-    stop("You are not using RStudio, ITS Courses require R Studio, please download and install from https://www.rstudio.com/products/rstudio/download/")
+    stop("    You are not using RStudio, ITS Courses require R Studio, please download and install from https://www.rstudio.com/products/rstudio/download/")
   }
   
   # Check RAM
@@ -82,12 +82,12 @@ setup_R <- function(rversion = 3.4,
   }
   
   if(memfree < 1000){
-    stop("You have less than 1 GB of RAM your computer is not suitable for the course")
+    stop("    You have less than 1 GB of RAM your computer is not suitable for the course")
   }else if(memfree < ram_warn){
-    log <- c(log, "Your computer is low on RAM, consider bringing a better laptop to the course")
-    message("PASS: Your computer has just enough RAM to run the course")
+    log <- c(log, "    Your computer is low on RAM, consider bringing a better laptop to the course")
+    message("    PASS: Your computer has just enough RAM to run the course")
   }else{
-    message("PASS: Plenty of RAM")
+    message("    PASS: Plenty of RAM")
   }
   
   
@@ -97,20 +97,20 @@ setup_R <- function(rversion = 3.4,
   if(length(pkgs) > 0){
     new.packages <- pkgs[!(pkgs %in% utils::installed.packages()[,"Package"])]
     if(length(new.packages) > 0){
-      message("Installing packages")
+      message("    Installing packages")
       utils::install.packages(new.packages, verbose = FALSE)
     } 
     
     if(all(pkgs %in% utils::installed.packages()[,"Package"])){
-      message("PASS: All CRAN packages installed")
+      message("    PASS: All CRAN packages installed")
     }else{
-      warning(paste0("Missing packages: ",paste(pkgs[!pkgs %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
-      stop("Some CRAN packages did not install sucessfully")
+      warning(paste0("    Missing packages: ",paste(pkgs[!pkgs %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
+      stop("    Some CRAN packages did not install sucessfully")
     }
   }else{
-    message("PASS: No CRAN packages were requested")
+    message("    PASS: No CRAN packages were requested")
   }
-  message("Updating any out of date packages")
+  message("    Updating any out of date packages")
   update.packages(oldPkgs = pkgs, ask = FALSE)
   
   # Install Packages Github
@@ -120,13 +120,13 @@ setup_R <- function(rversion = 3.4,
     }
     
     if(all(pkgs_gh %in% utils::installed.packages()[,"Package"])){
-      message("PASS: All GitHub packages installed")
+      message("    PASS: All GitHub packages installed")
     }else{
-      warning(paste0("Missing packages: ",paste(pkgs_gh[!pkgs_gh %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
-      stop("Some GitHub packages did not install sucessfully")
+      warning(paste0("    Missing packages: ",paste(pkgs_gh[!pkgs_gh %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
+      stop("    Some GitHub packages did not install sucessfully")
     }
   }else{
-    message("PASS: No GitHub packages were requested")
+    message("    PASS: No GitHub packages were requested")
   }
   
   # Check Geocomputation
@@ -138,29 +138,29 @@ setup_R <- function(rversion = 3.4,
     lines_all <- try(pct::get_pct_lines("isle-of-wight"), silent = TRUE)
     
     if(!"sf" %in% class(zones_all) | !"sf" %in% class(lines_all)){
-      stop("Faield to get data from the pct package")
+      stop("Failed to get data from the pct package")
     }else{
-      message("PASS: Got data from the pct package")
+      message("    PASS: Got data from the pct package")
     }
     
     plot(zones_all$geometry, main = "Test plot of desire lines on the Isle of Wight")
     plot(lines_all$geometry[lines_all$all > 300], col = "red", add = TRUE)
     
-    message("PASS: Basic Plotting")
+    message("    PASS: Basic Plotting")
   }else{
-    message("SKIP: pct package not tested")
+    message("    SKIP: pct package not tested")
   }
   
   # Cyclestreet package
   if(all(c("cyclestreets") %in% utils::installed.packages()[,"Package"] )){
     if(nchar(Sys.getenv("CYCLESTREETS")) > 0){
-      message("PASS: Cyclestreets key found")
+      message("    PASS: Cyclestreets key found")
     }else{
       log <- c(log,"WARN: The cyclestreets package requires an API key, please sign up for one at https://www.cyclestreets.net/api/ then add it to your R environ file")
-      message("WARN: No cyclestreets API key found.")
+      message("    WARN: No cyclestreets API key found.")
     }
   }else{
-    message("SKIP: cyclestreets package not tested")
+    message("    SKIP: cyclestreets package not tested")
   }
   
   
