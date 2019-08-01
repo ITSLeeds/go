@@ -61,7 +61,11 @@ setup_R <- function(rversion = 3.4,
   if (.Platform$OS.type == "windows") { 
     memfree <- utils::memory.limit()
   }else{
-    memfree <- as.numeric(system("awk '/MemFree/ {print $2}' /proc/meminfo", intern=TRUE)) / 1024
+    memfree <- try(as.numeric(system("awk '/MemFree/ {print $2}' /proc/meminfo", intern=TRUE)) / 1024)
+    if(class(memfree) == "try-error"){
+      log <- c(log,paste0("WARN: RAM check failed, you may be on MAC please check you have at least ",ram_warn," MB of RAM"))
+      memfree <- ram_warn + 1
+    }
   }
   
   if(memfree < 1000){
