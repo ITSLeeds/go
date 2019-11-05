@@ -6,6 +6,10 @@ setup_R(pkgs = c("remotes",
                 "tmap",
                 "pct",
                 "stats19",
-                "stplanr"),
+                "stplanr",
+                "microbenchmark",
+                "profvis",
+                "dodgr",
+                "geodist"),
         pkgs_gh = c("opentripplanner")
         ); rm(setup_R)
