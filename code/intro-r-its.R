@@ -6,6 +6,5 @@ setup_R(pkgs = c("remotes",
                 "pct",
                 "stats19",
                 "stplanr"
-                ),
-        pkgs_gh = c("opentripplanner")
+                )
         ); rm(setup_R)
