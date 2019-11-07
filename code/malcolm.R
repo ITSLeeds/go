@@ -11,5 +11,5 @@ setup_R(pkgs = c("remotes",
                 "profvis",
                 "dodgr",
                 "geodist"),
-        pkgs_gh = c("opentripplanner")
+        pkgs_gh = c("ITSleeds/opentripplanner")
         ); rm(setup_R)

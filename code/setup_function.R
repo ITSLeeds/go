@@ -1,5 +1,5 @@
 setup_R <- function(rversion = 3.4,
-                    pkgs = c("stplanr"),
+                    pkgs = c("pct"),
                     pkgs_gh = c(),
                     ram_warn = 4000
                     ){
@@ -11,7 +11,7 @@ setup_R <- function(rversion = 3.4,
   
   log <- " "
   
-  message("Step 1 or 4: Pre Checks")
+  message("Step 1 of 5: Pre Checks")
   pkgs <- unique(pkgs)
   pkgs_gh <- unique(pkgs_gh)
   
@@ -19,12 +19,14 @@ setup_R <- function(rversion = 3.4,
     stop("    Duplicated package names requested from CRAN and GitHub")
   }
   
+  loaded_already <- loadedNamespaces()
+  
   if(any(c(pkgs, pkgs_gh) %in% loadedNamespaces())){
     stop("    Some packages that need updating are loaded, please restart R and run the setup again")
   }
   
   
-  message("Step 2 of 4: Check the basics")
+  message("Step 2 of 5: Check the basics")
   Rv <- as.numeric(R.version$major) + as.numeric(R.version$minor) / 10 
   if(Rv >= rversion){
     message("    PASS: R Version Check")
@@ -91,7 +93,7 @@ setup_R <- function(rversion = 3.4,
   }
   
   
-  message("Step 3 of 4: Install Packages")
+  message("Step 3 of 5: Install Packages")
   
   # Install Packages CRAN
   if(length(pkgs) > 0){
@@ -130,7 +132,7 @@ setup_R <- function(rversion = 3.4,
   }
   
   # Check Geocomputation
-  message("Step 4 of 4: Test geocomputation")
+  message("Step 4 of 5: Test geocomputation")
   
   # pct package
   if(all(c("sf","pct") %in% utils::installed.packages()[,"Package"] )){
@@ -164,6 +166,34 @@ setup_R <- function(rversion = 3.4,
   }
   
   
+  # Unload the packages
+  message("Step 5 of 5: Cleaning up")
+  unload <- function(loaded_already, mode = "up"){
+    pkgs_unload <- loadedNamespaces()
+    pkgs_unload <- pkgs_unload[!pkgs_unload %in% loaded_already]
+    
+    
+    if(length(pkgs_unload) > 1){
+      if(mode == "down"){
+        pkgs_unload <- pkgs_unload[length(pkgs_unload):1]
+      } else if(mode == "random"){
+        pkgs_unload <- pkgs_unload[sample(1:length(pkgs_unload))]
+      }
+      
+      for(i in pkgs_unload){
+        foo <- suppressWarnings(try(unloadNamespace(i), silent = TRUE))
+      }
+    }
+  }
+  
+  # Won't do all first time so try multiple times
+  unload(loaded_already, "down")
+  unload(loaded_already, "up")
+  for(i in 1:50){
+    unload(loaded_already, "random")
+  }
+  
+  
   # Report Results
   message(" ")
   message(" ")
@@ -175,5 +205,7 @@ setup_R <- function(rversion = 3.4,
     message(log[i])
     message("______________")
   }
+  
+  
 }
 
