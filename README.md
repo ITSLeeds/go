@@ -1,4 +1,4 @@
-Go: Easy set up for R courses from ITS
+Go: Easy set up for R courses from ITS <a href='https://itsleeds.github.io/'><img src='logo.png' align="right" height=220/></a>
 ================
 
 This Repo contains code that helps set up your computer and R session
