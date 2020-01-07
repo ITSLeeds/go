@@ -58,16 +58,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/how_works.html">How does Go work?</a>
+    </li>
+    <li>
       <a href="articles/install.html">Installing R and R Studio</a>
     </li>
     <li>
       <a href="articles/install_linux.html">Installing R and R Studio on Linux</a>
     </li>
     <li>
-      <a href="articles/install_mac.html">Installing R and R Studioon Mac</a>
+      <a href="articles/install_mac.html">Installing R and R Studio on Mac</a>
     </li>
     <li>
       <a href="articles/install_windows.html">Installing R and R Studio on Windows</a>
+    </li>
+    <li>
+      <a href="articles/intro_R.html">Introduction to R</a>
     </li>
   </ul>
 </li>
@@ -117,22 +123,14 @@
 <p>Some extra help with ITS R courses:</p>
 <ul>
 <li>
-<a href="https://github.com/ITSLeeds/go/blob/master/docs/install.md">Installing R and R Studio</a> A short guide to installing R and R Studio.</li>
-<li><a href="">Introduction to R</a></li>
+<a href="https://itsleeds.github.io/go/articles/install.html">Installing R and R Studio</a> A short guide to installing R and R Studio.</li>
+<li>
+<a href="https://itsleeds.github.io/go/articles/intro_R.html">Introduction to R</a> Short introduction to using R.</li>
 <li>
 <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> A free book on how to do GIS in R.</li>
+<li>
+<a href="https://itsleeds.github.io/go/articles/how_works.html">How does Go work?</a> More information about Go.</li>
 </ul>
-</div>
-<div id="how-does-it-work" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-does-it-work" class="anchor"></a>How does it work?</h2>
-<p>Go relies on two functions <code>source</code> which simply says run this code, and <code>setup_function</code> which does all the hard work. In the example above a URL shortner has been used to shorten <code>https://raw.githubusercontent.com/ITSLeeds/go/master/pct.R</code> into <code>https://git.io/fj9eC</code>. This script then runs the <code>setup_function</code> which will install and update any packages requested as well as doing some basic system checks.</p>
-<p>Go is a work in progress and we will add checks over time to make it more useful and to catch new types of set up problems as we encounter them. Please leave your feedback <a href="https://github.com/ITSLeeds/go/issues">here</a>.</p>
-</div>
-<div id="is-it-safe" class="section level2">
-<h2 class="hasAnchor">
-<a href="#is-it-safe" class="anchor"></a>Is it safe?</h2>
-<p>You might be worried about running some unknown code from the internet on your computer. All the code in Go is open souce and in this repo. If you want to be extra safe simply download the <code>setup_function</code> from <a href="https://github.com/ITSLeeds/go/blob/master/code/setup_function.R">here</a> and run though it yourself.</p>
 </div>
 </div>
   </div>

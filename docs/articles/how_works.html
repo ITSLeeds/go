@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Installing R and R Studio on Mac • Go</title>
+<title>How does Go work? • Go</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Installing R and R Studio on Mac">
+<script src="../pkgdown.js"></script><meta property="og:title" content="How does Go work?">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -94,27 +94,22 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Installing R and R Studio on Mac</h1>
+      <h1>How does Go work?</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/itsleeds/go/blob/master/vignettes/install_mac.Rmd"><code>vignettes/install_mac.Rmd</code></a></small>
-      <div class="hidden name"><code>install_mac.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/itsleeds/go/blob/master/vignettes/how_works.Rmd"><code>vignettes/how_works.Rmd</code></a></small>
+      <div class="hidden name"><code>how_works.Rmd</code></div>
 
     </div>
 
     
     
-<p>To install R and RStudio on Mac:</p>
-<ol style="list-style-type: decimal">
-<li><p><a href="https://www.stats.bris.ac.uk/R/bin/macosx/">Download R</a> note this link is for UK users. If you are outside the UK use <a href="https://cran.r-project.org/mirrors.html">this link</a> selecting your country (or nearest available country))</p></li>
-<li><p>Install R - run the downloaded .pkg and follow the prompts</p></li>
-<li><p><a href="https://rstudio.com/products/rstudio/download/#download">Download RStudio</a> select the macOS 10.12+ option</p></li>
-<li><p>Install RStudio - run the downloaded .pkg and follow the prompts</p></li>
-</ol>
-<div id="extra-help" class="section level2">
+<p>Go relies on two functions <code>source</code> which simply says run this code, and <code>setup_function</code> which does all the hard work. In the example above a URL shortner has been used to shorten <code>https://raw.githubusercontent.com/ITSLeeds/go/master/pct.R</code> into <code>https://git.io/fj9eC</code>. This script then runs the <code>setup_function</code> which will install and update any packages requested as well as doing some basic system checks.</p>
+<p>Go is a work in progress and we will add checks over time to make it more useful and to catch new types of set up problems as we encounter them. Please leave your feedback <a href="https://github.com/ITSLeeds/go/issues">here</a>.</p>
+<div id="is-it-safe" class="section level2">
 <h2 class="hasAnchor">
-<a href="#extra-help" class="anchor"></a>Extra help</h2>
-<p>Video Tutorial: <a href="https://www.youtube.com/watch?v=cX532N_XLIs" class="uri">https://www.youtube.com/watch?v=cX532N_XLIs</a></p>
+<a href="#is-it-safe" class="anchor"></a>Is it safe?</h2>
+<p>You might be worried about running some unknown code from the internet on your computer. All the code in Go is open source and in this repo. If you want to be extra safe simply download the <code>setup_function</code> from <a href="https://github.com/ITSLeeds/go/blob/master/code/setup_function.R">here</a> and run though it yourself.</p>
 </div>
   </div>
 
@@ -124,7 +119,7 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#extra-help">Extra help</a></li>
+<li><a href="#is-it-safe">Is it safe?</a></li>
       </ul>
 </div>
       </div>
