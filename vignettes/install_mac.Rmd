@@ -1,5 +1,5 @@
 ---
-title: "Installing R and R Studioon Mac"
+title: "Installing R and R Studio on Mac"
 output: github_document
 ---
 
