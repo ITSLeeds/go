@@ -35,31 +35,13 @@ course.
 Some extra help with ITS R courses:
 
   - [Installing R and R
-    Studio](https://github.com/ITSLeeds/go/blob/master/docs/install.md)
-    A short guide to installing R and R Studio.
-  - [Introduction to R]()
+    Studio](https://itsleeds.github.io/go/articles/install.html) A short
+    guide to installing R and R Studio.
+  - [Introduction to
+    R](https://itsleeds.github.io/go/articles/intro_R.html) Short
+    introduction to using R.
   - [Geocomputation with R](https://geocompr.robinlovelace.net/) A free
     book on how to do GIS in R.
-
-## How does it work?
-
-Go relies on two functions `source` which simply says run this code, and
-`setup_function` which does all the hard work. In the example above a
-URL shortner has been used to shorten
-`https://raw.githubusercontent.com/ITSLeeds/go/master/pct.R` into
-`https://git.io/fj9eC`. This script then runs the `setup_function` which
-will install and update any packages requested as well as doing some
-basic system checks.
-
-Go is a work in progress and we will add checks over time to make it
-more useful and to catch new types of set up problems as we encounter
-them. Please leave your feedback
-[here](https://github.com/ITSLeeds/go/issues).
-
-## Is it safe?
-
-You might be worried about running some unknown code from the internet
-on your computer. All the code in Go is open souce and in this repo. If
-you want to be extra safe simply download the `setup_function` from
-[here](https://github.com/ITSLeeds/go/blob/master/code/setup_function.R)
-and run though it yourself.
+  - [How does Go
+    work?](https://itsleeds.github.io/go/articles/how_works.html) More
+    information about Go.
