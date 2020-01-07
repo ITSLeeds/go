@@ -1,5 +1,5 @@
 ---
-title: "Installing R and R Studio on Windows"
+title: "Installing R and RStudio on Windows"
 output: github_document
 ---
 
@@ -19,7 +19,7 @@ To install R and RStudio on Windows:
 
 **Optional Extras**
 
-1. [Download RTools](https://cran.r-project.org/bin/windows/Rtools/) select the reccomended version
+1. [Download RTools](https://cran.r-project.org/bin/windows/Rtools/) select the recommended version
 
 1. Install RTools - run the dowloaded .exe and follow the prompts
 

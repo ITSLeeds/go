@@ -1,5 +1,5 @@
 ---
-title: "Installing R and R Studio on Linux"
+title: "Installing R and RStudio on Linux"
 output: github_document
 ---
 
