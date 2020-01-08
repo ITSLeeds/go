@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 To get the most out of your ITS course, we recommend you bring your own laptop. This allows you to take the worked examples you do during the course with you. These instructions will help you setup your laptop so it is ready for the course.
 
-### Hardware
+### Hardware 
 
 To get the most out of an ITS course, we suggest you bring a modern laptop.
 
