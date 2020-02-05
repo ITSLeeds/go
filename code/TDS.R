@@ -1,4 +1,4 @@
-source("https://raw.githubusercontent.com/ITSLeeds/go/master/code/setup_function.R")
+source("https://raw.githubusercontent.com/ITSLeeds/go/master/code/setup_function2.R")
 setup_R(pkgs = c("sf",
                 "tidyverse",
                 "cyclestreets",
