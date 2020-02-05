@@ -7,5 +7,6 @@ setup_R(pkgs = c("sf",
                 "stats19",
                 "stplanr",
                 "dodgr",
-                "geodist")
+                "geodist",
+                "opentripplanner")
         ); rm(setup_R)
