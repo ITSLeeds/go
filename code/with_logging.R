@@ -16,11 +16,11 @@ if(!exists(dir)){
 }
 
 if(!exists(url)){
-  url <- "https://github.com/ITSLeeds/go/archive/v0.1.zip"
+  url <- "https://github.com/ITSLeeds/go/archive/v0.2.zip"
 }
 
 if(!exists(tag)){
-  tag <- "go-0.1"
+  tag <- "go-0.2"
 }
 # Download and Run
 utils::download.file(url = url,
