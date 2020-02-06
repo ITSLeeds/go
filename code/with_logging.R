@@ -1,4 +1,8 @@
 # Check for Variables
+if(!exists("pkgs")){
+  pkgs <- NULL
+}
+
 if(!exists("pkgs_gh")){
   pkgs_gh <- NULL
 }
