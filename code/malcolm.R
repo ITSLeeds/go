@@ -1,15 +1,16 @@
-source("https://raw.githubusercontent.com/ITSLeeds/go/master/code/setup_function.R")
-setup_R(pkgs = c("remotes",
-                "sf",
-                "tidyverse",
-                "cyclestreets",
-                "tmap",
-                "pct",
-                "stats19",
-                "stplanr",
-                "microbenchmark",
-                "profvis",
-                "dodgr",
-                "geodist"),
-        pkgs_gh = c("ITSleeds/opentripplanner")
-        ); rm(setup_R)
+# Settings - can be changed
+pkgs <- c("sf",
+          "tidyverse",
+          "cyclestreets",
+          "tmap",
+          "pct",
+          "stats19",
+          "stplanr",
+          "dodgr",
+          "geodist",
+          "opentripplanner",
+          "microbenchmark",
+          "profvis")
+pkgs_gh <- c("ITSleeds/geofabrik")
+
+source("https://raw.githubusercontent.com/ITSLeeds/go/master/code/with_logging.R")

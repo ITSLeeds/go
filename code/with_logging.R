@@ -1,25 +1,39 @@
-dir <- tempdir()
-url <- "https://github.com/ITSLeeds/go/archive/v0.1.zip"
-tag <- "go-0.1"
-utils::download.file(url = url,
-              destfile = file.path(dir,"ITSgo.zip"),
-              quiet = TRUE)
-utils::unzip(file.path(dir,"ITSgo.zip"),
-             exdir = file.path(dir))
-source(file.path(dir,tag,"code","setup_function2.R"))
-setup_R(pkgs = c("sf",
-                "tidyverse",
-                "cyclestreets",
-                "tmap",
-                "pct",
-                "stats19",
-                "stplanr",
-                "dodgr",
-                "geodist",
-                "opentripplanner"),
-        pkgs_gh = c("ITSleeds/geofabrik")
-        )
+# Check for Variables
+if(!exists(pkgs_gh)){
+  pkgs_gh <- NULL
+}
 
-file.remove(file.path(dir,"ITSgo.zip"))
-unlink(file.path(dir,tag), recursive = TRUE)
-rm(setup_R, url, tag, dir)
+if(!exists(rversion)){
+  rversion <- 3.4
+}
+
+if(!exists(ram_warn)){
+  ram_warn <- 4000
+}
+
+if(!exists(dir)){
+  dir_use <- tempdir()
+}
+
+if(!exists(url)){
+  url <- "https://github.com/ITSLeeds/go/archive/v0.1.zip"
+}
+
+if(!exists(tag)){
+  tag <- "go-0.1"
+}
+# Download and Run
+utils::download.file(url = url,
+              destfile = file.path(dir_use,"ITSgo.zip"),
+              quiet = TRUE)
+utils::unzip(file.path(dir_use,"ITSgo.zip"),
+             exdir = file.path(dir_use))
+source(file.path(dir_use,tag,"code","setup_function.R"))
+setup_R(pkgs = pkgs,
+        pkgs_gh = pkgs_gh,
+        rversion = rversion,
+        ram_warn = ram_warn)
+
+file.remove(file.path(dir_use,"ITSgo.zip"))
+unlink(file.path(dir_use,tag), recursive = TRUE)
+rm(setup_R, url, tag, dir_use, pkgs, pkgs_gh, rversion, ram_warn)

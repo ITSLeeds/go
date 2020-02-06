@@ -1,5 +1,5 @@
 
-# Go: Easy set up for R courses from ITS <a href='https://itsleeds.github.io/'><img src='https://github.com/ITSLeeds/go/raw/master/vignettes/images/logo.png' align="right" height=180/></a>
+# Go: Easy set up for R courses from ITS <a href='https://itsleeds.github.io/'><img src='https://github.com/ITSLeeds/go/raw/master/logo.jpg' align="right" height=180/></a>
 
 This Repo contains code that helps set up your computer and R session
 for ITS Courses or to use ITS developed R packages.
@@ -12,7 +12,7 @@ and API keys. This can be difficult to convey to beginners or require
 intimidating long lists of prerequisites. So we have condensed the whole
 process down into a single one-line command that is easy to use.
 
-For example, to set up your computer for the PCT Advanced Training
+For example, to set up your computer for the Transport Data Science
 Course simply:
 
   - Open R Studio
@@ -21,10 +21,11 @@ Course simply:
 <!-- end list -->
 
 ``` r
-   source("https://git.io/fj9eC")
+   source("https://git.io/JvGjF")
 ```
 
   - Press Enter
+  - Follow the instructions
 
 This simple command will check your computer, install all the necessary
 packages and tell you if your computer is ready to be used for the

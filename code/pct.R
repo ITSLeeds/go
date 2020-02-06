@@ -2,6 +2,7 @@
 pkgs <- c("remotes",
           "sf",
           "tidyverse",
+          "cyclestreets",
           "tmap",
           "pct",
           "stats19",

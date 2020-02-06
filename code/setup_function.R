@@ -1,13 +1,38 @@
 setup_R <- function(rversion = 3.4,
-                    pkgs = c("pct"),
+                    pkgs = c("sf"),
                     pkgs_gh = c(),
                     ram_warn = 4000
-                    ){
+){
   
+  message("")
+  message("")
+  message("Welcome to Go: Easy set up for R courses from ITS")
+  message("")
   message("This code will install packages and run tests to prepare your computer for an ITS Leeds R course")
   message("If this process is successful you will see the message 'You computer is ready for the ITS Leeds Course'")
+  message("")
   
-  readline(prompt = "Press [enter] to continue, [escape] to abort")
+  yn <- function(){
+    resp <- readline(prompt = "Do you wish to continue? [Y/n]  ")
+    if(tolower(resp) %in% c("y","yes") | (nchar(resp) == 0)){
+      # Continute
+    } else if (tolower(resp) %in% c("n","no")){
+      stop("User aborted process")
+    } else {
+      message(class(resp))
+      stop("Unknown input aborting process")
+    }
+  }
+  
+  yn()
+  
+  message("")
+  message("Before running this script, make sure you have closed all other R sessions and have no packages loaded")
+  message("You can check that you have no packages loaded in RStudio by clicking Session > Restart R")
+  message("You can then rerun this script")
+  message("")
+  
+  yn()
   
   log <- " "
   
@@ -15,13 +40,28 @@ setup_R <- function(rversion = 3.4,
   pkgs <- unique(pkgs)
   pkgs_gh <- unique(pkgs_gh)
   
-  if(any(pkgs_gh %in% pkgs)){
-    stop("    Duplicated package names requested from CRAN and GitHub")
+  if(length(pkgs_gh) > 0){
+    pkgs_gh_nm = strsplit(pkgs_gh, "/")
+    pkgs_gh_nm = sapply(pkgs_gh_nm, function(x){
+      x[length(x)]
+    })
+  } else {
+    pkgs_gh_nm = NULL
   }
+  
+  
+  if(any(pkgs_gh_nm %in% pkgs)){
+    stop("Duplicated packages requested from CRAN and GitHub")
+  }
+  
+  
+  # if(any(pkgs_gh %in% pkgs)){
+  #   stop("    Duplicated package names requested from CRAN and GitHub")
+  # }
   
   loaded_already <- loadedNamespaces()
   
-  if(any(c(pkgs, pkgs_gh) %in% loadedNamespaces())){
+  if(any(c(pkgs, pkgs_gh_nm) %in% loadedNamespaces())){
     stop("    Some packages that need updating are loaded, please restart R and run the setup again")
   }
   
@@ -36,19 +76,31 @@ setup_R <- function(rversion = 3.4,
     
   }
   
-  # We need devtools to do some checks
-  if(!"devtools" %in% utils::installed.packages()[,"Package"]){
-    utils::install.packages("devtools")
-  }
-  
-  if("devtools" %in% utils::installed.packages()[,"Package"]){
-    message("    PASS: Devtools is installed")
-  }else{
-    stop("    Unable to install devtools try running install.packages('devtools')")
+  # We need remotes to install github packages
+  if(length(pkgs_gh) > 0){
+    if(!"remotes" %in% utils::installed.packages()[,"Package"]){
+      utils::install.packages("remotes", quiet = TRUE)
+    }
+    
+    if("remotes" %in% utils::installed.packages()[,"Package"]){
+      message("    PASS: remotes is installed")
+    }else{
+      stop("    Unable to install remotes try running install.packages('remotes')")
+    }
   }
   
   # Check for Rtools
   if (.Platform$OS.type == "windows") { 
+    if(!"pkgbuild" %in% utils::installed.packages()[,"Package"]){
+      utils::install.packages("pkgbuild", quiet = TRUE)
+    }
+    
+    if("pkgbuild" %in% utils::installed.packages()[,"Package"]){
+      message("    PASS: pkgbuild is installed")
+    }else{
+      stop("    Unable to install pkgbuild try running install.packages('pkgbuild')")
+    }
+  
     if(pkgbuild::find_rtools()){
       message("    PASS: RTools is installed")
     }else{
@@ -66,7 +118,7 @@ setup_R <- function(rversion = 3.4,
   
   # Check for RStudio
   if(rstudioapi::isAvailable()){
-   message("    PASS: You are using RStudio") 
+    message("    PASS: You are using RStudio") 
   }else{
     browseURL("https://www.rstudio.com/products/rstudio/download/")
     stop("    You are not using RStudio, ITS Courses require R Studio, please download and install from https://www.rstudio.com/products/rstudio/download/")
@@ -99,8 +151,8 @@ setup_R <- function(rversion = 3.4,
   if(length(pkgs) > 0){
     new.packages <- pkgs[!(pkgs %in% utils::installed.packages()[,"Package"])]
     if(length(new.packages) > 0){
-      message("    Installing packages")
-      utils::install.packages(new.packages, verbose = FALSE)
+      message("    Installing ",length(new.packages)," packages")
+      utils::install.packages(new.packages, verbose = FALSE, quiet = TRUE)
     } 
     
     if(all(pkgs %in% utils::installed.packages()[,"Package"])){
@@ -113,18 +165,18 @@ setup_R <- function(rversion = 3.4,
     message("    PASS: No CRAN packages were requested")
   }
   message("    Updating any out of date packages")
-  update.packages(oldPkgs = pkgs, ask = FALSE)
+  update.packages(oldPkgs = pkgs, ask = FALSE, quiet = TRUE)
   
   # Install Packages Github
   if(length(pkgs_gh) > 0){
     for(i in seq(1, length(pkgs_gh))){
-      remotes::install_github(pkgs_gh[i], quiet = TRUE)
+      remotes::install_github(pkgs_gh[i], quiet = TRUE, upgrade = "always")
     }
     
-    if(all(pkgs_gh %in% utils::installed.packages()[,"Package"])){
+    if(all(pkgs_gh_nm %in% utils::installed.packages()[,"Package"])){
       message("    PASS: All GitHub packages installed")
     }else{
-      warning(paste0("    Missing packages: ",paste(pkgs_gh[!pkgs_gh %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
+      warning(paste0("    Missing packages: ",paste(pkgs_gh_nm[!pkgs_gh_nm %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
       stop("    Some GitHub packages did not install sucessfully")
     }
   }else{
@@ -136,7 +188,7 @@ setup_R <- function(rversion = 3.4,
   
   # pct package
   if(all(c("sf","pct") %in% utils::installed.packages()[,"Package"] )){
-    zones_all <- try(pct::get_pct_zones("isle-of-wight"), silent = TRUE)
+    zones_all <- suppressWarnings(suppressMessages(try(pct::get_pct_zones("isle-of-wight"), silent = TRUE)))
     lines_all <- try(pct::get_pct_lines("isle-of-wight"), silent = TRUE)
     
     if(!"sf" %in% class(zones_all) | !"sf" %in% class(lines_all)){
@@ -164,6 +216,30 @@ setup_R <- function(rversion = 3.4,
   }else{
     message("    SKIP: cyclestreets package not tested")
   }
+  
+  # opentripplanner package
+  if("opentripplanner" %in% utils::installed.packages()[,"Package"]){
+    java_version <- try(system2("java", "-version", stdout = TRUE, stderr = TRUE))
+    if (class(java_version) == "try-error") {
+      message("    WARN: Unable to detect a version of Java, to run a local version of OpenTripPlanner requires Java 8")
+      log <- c(log,"WARN: You may not have the correct version of Java installed to use OpenTripPlanner locally")
+      } else {
+      java_version <- java_version[1]
+      java_version <- strsplit(java_version, "\"")[[1]][2]
+      java_version <- strsplit(java_version, "\\.")[[1]][1:2]
+      java_version <- as.numeric(paste0(java_version[1], ".", java_version[2]))
+      if (is.na(java_version)) {
+        message("    WARN: Unable to detect a version of Java, to run a local version of OpenTripPlanner requires Java 8")
+        log <- c(log,"WARN: You may not have the correct version of Java installed to use OpenTripPlanner locally")
+      } else if (java_version < 1.8 | java_version >= 1.9) {
+        message("    WARN: To run a local version of OpenTripPlanner requires Java 1.8, you have version ",java_version)
+        log <- c(log,"WARN: You may not have the correct version of Java installed to use OpenTripPlanner locally")
+      } else{
+        message("    PASS: You have the correct version of Java for OpenTripPlanner")
+      }
+    }
+  }
+  
   
   
   # Unload the packages
