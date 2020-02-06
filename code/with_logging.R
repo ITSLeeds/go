@@ -40,4 +40,4 @@ setup_R(pkgs = pkgs,
 
 file.remove(file.path(dir_use,"ITSgo.zip"))
 unlink(file.path(dir_use,tag), recursive = TRUE)
-rm(setup_R, url, tag, dir_use, pkgs, pkgs_gh, rversion, ram_warn)
+rm(setup_R, url_use, tag, dir_use, pkgs, pkgs_gh, rversion, ram_warn)
