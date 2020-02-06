@@ -170,13 +170,13 @@ setup_R <- function(rversion = 3.4,
   # Install Packages Github
   if(length(pkgs_gh) > 0){
     for(i in seq(1, length(pkgs_gh))){
-      remotes::install_github(pkgs_gh[i], quiet = TRUE)
+      remotes::install_github(pkgs_gh[i], quiet = TRUE, upgrade = "always")
     }
     
-    if(all(pkgs_gh %in% utils::installed.packages()[,"Package"])){
+    if(all(pkgs_gh_nm %in% utils::installed.packages()[,"Package"])){
       message("    PASS: All GitHub packages installed")
     }else{
-      warning(paste0("    Missing packages: ",paste(pkgs_gh[!pkgs_gh %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
+      warning(paste0("    Missing packages: ",paste(pkgs_gh_nm[!pkgs_gh_nm %in% utils::installed.packages()[,"Package"]]), collapse = ", "))
       stop("    Some GitHub packages did not install sucessfully")
     }
   }else{
@@ -216,6 +216,30 @@ setup_R <- function(rversion = 3.4,
   }else{
     message("    SKIP: cyclestreets package not tested")
   }
+  
+  # opentripplanner package
+  if("opentripplanner" %in% utils::installed.packages()[,"Package"]){
+    java_version <- try(system2("java", "-version", stdout = TRUE, stderr = TRUE))
+    if (class(java_version) == "try-error") {
+      message("    WARN: Unable to detect a version of Java, to run a local version of OpenTripPlanner requires Java 8")
+      log <- c(log,"WARN: You may not have the correct version of Java installed to use OpenTripPlanner locally")
+      } else {
+      java_version <- java_version[1]
+      java_version <- strsplit(java_version, "\"")[[1]][2]
+      java_version <- strsplit(java_version, "\\.")[[1]][1:2]
+      java_version <- as.numeric(paste0(java_version[1], ".", java_version[2]))
+      if (is.na(java_version)) {
+        message("    WARN: Unable to detect a version of Java, to run a local version of OpenTripPlanner requires Java 8")
+        log <- c(log,"WARN: You may not have the correct version of Java installed to use OpenTripPlanner locally")
+      } else if (java_version < 1.8 | java_version >= 1.9) {
+        message("    WARN: To run a local version of OpenTripPlanner requires Java 1.8, you have version ",java_version)
+        log <- c(log,"WARN: You may not have the correct version of Java installed to use OpenTripPlanner locally")
+      } else{
+        message("    PASS: You have the correct version of Java for OpenTripPlanner")
+      }
+    }
+  }
+  
   
   
   # Unload the packages

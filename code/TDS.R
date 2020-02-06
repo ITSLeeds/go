@@ -8,5 +8,7 @@ setup_R(pkgs = c("sf",
                 "stplanr",
                 "dodgr",
                 "geodist",
-                "opentripplanner")
-        ); rm(setup_R)
+                "opentripplanner"),
+        pkgs_gh = c("ITSleeds/geofabrik")
+        )
+rm(setup_R)
