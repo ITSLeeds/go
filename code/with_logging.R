@@ -15,15 +15,15 @@ if(!exists("dir_use")){
   dir_use <- tempdir()
 }
 
-if(!exists("url")){
-  url <- "https://github.com/ITSLeeds/go/archive/v0.2.zip"
+if(!exists("url_use")){
+  url_use <- "https://github.com/ITSLeeds/go/archive/v0.2.zip"
 }
 
 if(!exists("tag")){
   tag <- "go-0.2"
 }
 # Download and Run
-utils::download.file(url = url,
+utils::download.file(url = url_use,
               destfile = file.path(dir_use,"ITSgo.zip"),
               quiet = TRUE)
 utils::unzip(file.path(dir_use,"ITSgo.zip"),
