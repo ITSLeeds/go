@@ -11,8 +11,8 @@ if(!exists("ram_warn")){
   ram_warn <- 4000
 }
 
-if(!exists("dir")){
-  dir <- tempdir()
+if(!exists("dir_use")){
+  dir_use <- tempdir()
 }
 
 if(!exists("url")){
