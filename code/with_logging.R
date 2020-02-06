@@ -12,7 +12,7 @@ if(!exists(ram_warn)){
 }
 
 if(!exists(dir)){
-  dir_use <- tempdir()
+  dir <- tempdir()
 }
 
 if(!exists(url)){
