@@ -1,9 +1,12 @@
 dir <- tempdir()
-utils::download.file(url = "https://github.com/ITSLeeds/go/archive/v0.1.zip",
+url <- "https://github.com/ITSLeeds/go/archive/v0.1.zip"
+tag <- "go-0.1"
+utils::download.file(url = url,
               destfile = file.path(dir,"ITSgo.zip"),
               quiet = TRUE)
-utils::unzip(file.path(dir,"ITSgo.zip"))
-source(file.path(dir,"ITSgo","code","setup_function2.R"))
+utils::unzip(file.path(dir,"ITSgo.zip"),
+             exdir = file.path(dir))
+source(file.path(dir,tag,"code","setup_function2.R"))
 setup_R(pkgs = c("sf",
                 "tidyverse",
                 "cyclestreets",
@@ -18,6 +21,5 @@ setup_R(pkgs = c("sf",
         )
 
 file.remove(file.path(dir,"ITSgo.zip"))
-unlink(file.path(dir,"ITSgo"), recursive = TRUE)
-rm(setup_R)
-rm(dir)
+unlink(file.path(dir,tag), recursive = TRUE)
+rm(setup_R, url, tag, dir)
