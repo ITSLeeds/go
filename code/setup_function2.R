@@ -40,13 +40,28 @@ setup_R <- function(rversion = 3.4,
   pkgs <- unique(pkgs)
   pkgs_gh <- unique(pkgs_gh)
   
-  if(any(pkgs_gh %in% pkgs)){
-    stop("    Duplicated package names requested from CRAN and GitHub")
+  if(length(pkgs_gh) > 0){
+    pkgs_gh_nm = strsplit(pkgs_gh, "/")
+    pkgs_gh_nm = sapply(pkgs_gh_nm, function(x){
+      x[length(x)]
+    })
+  } else {
+    pkgs_gh_nm = NULL
   }
+  
+  
+  if(any(pkgs_gh_nm %in% pkgs)){
+    stop("Duplicated packages requested from CRAN and GitHub")
+  }
+  
+  
+  # if(any(pkgs_gh %in% pkgs)){
+  #   stop("    Duplicated package names requested from CRAN and GitHub")
+  # }
   
   loaded_already <- loadedNamespaces()
   
-  if(any(c(pkgs, pkgs_gh) %in% loadedNamespaces())){
+  if(any(c(pkgs, pkgs_gh_nm) %in% loadedNamespaces())){
     stop("    Some packages that need updating are loaded, please restart R and run the setup again")
   }
   
