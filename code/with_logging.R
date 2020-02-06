@@ -1,25 +1,25 @@
 # Check for Variables
-if(!exists(pkgs_gh)){
+if(!exists("pkgs_gh")){
   pkgs_gh <- NULL
 }
 
-if(!exists(rversion)){
+if(!exists("rversion")){
   rversion <- 3.4
 }
 
-if(!exists(ram_warn)){
+if(!exists("ram_warn")){
   ram_warn <- 4000
 }
 
-if(!exists(dir)){
+if(!exists("dir")){
   dir <- tempdir()
 }
 
-if(!exists(url)){
+if(!exists("url")){
   url <- "https://github.com/ITSLeeds/go/archive/v0.2.zip"
 }
 
-if(!exists(tag)){
+if(!exists("tag")){
   tag <- "go-0.2"
 }
 # Download and Run
