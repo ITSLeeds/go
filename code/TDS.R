@@ -8,7 +8,9 @@ pkgs <- c("sf",
           "stplanr",
           "dodgr",
           "geodist",
-          "opentripplanner")
+          "opentripplanner",
+          "igraph",
+          "snakecase")
 pkgs_gh <- c("ITSleeds/geofabrik")
 
 source("https://raw.githubusercontent.com/ITSLeeds/go/master/code/with_logging.R")
