@@ -125,15 +125,46 @@ setup_R <- function(rversion = 3.4,
   }
   
   # Check RAM
-  if (.Platform$OS.type == "windows") { 
+  get_os <- function(){
+    sysinf <- Sys.info()
+    if (!is.null(sysinf)){
+      os <- sysinf['sysname']
+      if (os == 'Darwin')
+        os <- "osx"
+    } else { ## mystery machine
+      os <- .Platform$OS.type
+      if (grepl("^darwin", R.version$os))
+        os <- "osx"
+      if (grepl("linux-gnu", R.version$os))
+        os <- "linux"
+    }
+    tolower(os)
+  }
+  
+  os <- get_os()
+  if(os == "windows"){
     memfree <- utils::memory.limit()
-  }else{
+  } else if (os == "linux") {
     memfree <- try(as.numeric(system("awk '/MemFree/ {print $2}' /proc/meminfo", intern=TRUE)) / 1024)
     if(class(memfree) == "try-error"){
-      log <- c(log,paste0("WARN: RAM check failed, you may be on MAC please check you have at least ",ram_warn," MB of RAM"))
+      log <- c(log,paste0("WARN: RAM check failed, please check you have at least ",ram_warn," MB of RAM"))
       memfree <- ram_warn + 1
     }
+  } else {
+    log <- c(log,paste0("WARN: RAM check failed, you may be on MAC please check you have at least ",ram_warn," MB of RAM"))
+    memfree <- ram_warn + 1
   }
+  
+  
+  # if (.Platform$OS.type == "windows") { 
+  #   memfree <- utils::memory.limit()
+  # }else{
+  #   memfree <- try(as.numeric(system("awk '/MemFree/ {print $2}' /proc/meminfo", intern=TRUE)) / 1024)
+  #   if(class(memfree) == "try-error"){
+  #     log <- c(log,paste0("WARN: RAM check failed, you may be on MAC please check you have at least ",ram_warn," MB of RAM"))
+  #     memfree <- ram_warn + 1
+  #   }
+  # }
   
   if(memfree < 1000){
     stop("    You have less than 1 GB of RAM your computer is not suitable for the course")
