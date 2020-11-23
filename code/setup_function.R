@@ -4,35 +4,36 @@ setup_R <- function(rversion = 3.4,
                     ram_warn = 4000
 ){
   
-  message("")
-  message("")
-  message("Welcome to Go: Easy set up for R courses from ITS")
-  message("")
-  message("This code will install packages and run tests to prepare your computer for an ITS Leeds R course")
-  message("If this process is successful you will see the message 'You computer is ready for the ITS Leeds Course'")
-  message("")
   
-  yn <- function(){
-    resp <- readline(prompt = "Do you wish to continue? [Y/n]  ")
-    if(tolower(resp) %in% c("y","yes") | (nchar(resp) == 0)){
-      # Continute
-    } else if (tolower(resp) %in% c("n","no")){
-      stop("User aborted process")
-    } else {
-      message(class(resp))
-      stop("Unknown input aborting process")
-    }
+  responce <- askYesNo(paste0("Welcome to Go: Easy set up for R courses from ITS \n",
+                  "\n",
+                  "This code will install packages and run tests to prepare your computer for an ITS Leeds R course. ",
+                  "If this process is successful you will see the message: \n",
+                  "\n",
+                  "'You computer is ready for the ITS Leeds Course'\n",
+                  "\n",
+                  "Do you wish to begin?"))
+  
+  if(is.na(responce)){
+    responce <- FALSE
   }
   
-  yn()
+  if(!responce){
+    stop("Process aborted by user")
+  }
   
-  message("")
-  message("Before running this script, make sure you have closed all other R sessions and have no packages loaded")
-  message("You can check that you have no packages loaded in RStudio by clicking Session > Restart R")
-  message("You can then rerun this script")
-  message("")
+  responce <- askYesNo(paste0("Before running this script, make sure you have closed all other R sessions and have no packages loaded \n",
+                              "\n",
+                              "You can check that you have no packages loaded in RStudio by clicking Session > Restart R \n",
+                              "You can then rerun this script"))
   
-  yn()
+  if(is.na(responce)){
+    responce <- FALSE
+  }
+  
+  if(!responce){
+    stop("Process aborted by user")
+  }
   
   log <- " "
   
@@ -53,11 +54,6 @@ setup_R <- function(rversion = 3.4,
   if(any(pkgs_gh_nm %in% pkgs)){
     stop("Duplicated packages requested from CRAN and GitHub")
   }
-  
-  
-  # if(any(pkgs_gh %in% pkgs)){
-  #   stop("    Duplicated package names requested from CRAN and GitHub")
-  # }
   
   loaded_already <- loadedNamespaces()
   
