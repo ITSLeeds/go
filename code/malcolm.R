@@ -11,6 +11,6 @@ pkgs <- c("sf",
           "opentripplanner",
           "microbenchmark",
           "profvis")
-pkgs_gh <- c("ITSleeds/geofabrik")
+pkgs_gh <- c("ITSleeds/osmextract")
 
 source("https://raw.githubusercontent.com/ITSLeeds/go/master/code/with_logging.R")
