@@ -292,7 +292,7 @@ setup_R <- function(rversion = 3.4,
   # Won't do all first time so try multiple times
   unload(loaded_already, "down")
   unload(loaded_already, "up")
-  for(i in 1:50){
+  for(i in 1:500){
     unload(loaded_already, "random")
   }
   
