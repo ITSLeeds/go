@@ -12,5 +12,5 @@ setup_R(pkgs = c("sf",
                  "igraph",
                  "snakecase"),
         pkgs_gh = c("ITSleeds/osmextract",
-                    "luukvdmeer/sfnetworks"))
+                    "luukvdmeer/sfnetworks@0.4.1"))
 rm(setup_R)
