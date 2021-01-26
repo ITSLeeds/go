@@ -1,7 +1,6 @@
 # Settings - can be changed
 pkgs <- c("sf",
           "tidyverse",
-          "cyclestreets",
           "tmap",
           "pct",
           "stats19",
@@ -11,6 +10,7 @@ pkgs <- c("sf",
           "opentripplanner",
           "igraph",
           "snakecase")
-pkgs_gh <- c("ITSleeds/osmextract")
+pkgs_gh <- c("ITSleeds/osmextract",
+             "luukvdmeer/sfnetworks")
 
 source("https://raw.githubusercontent.com/ITSLeeds/go/master/code/with_logging.R")
