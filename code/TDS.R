@@ -11,6 +11,6 @@ setup_R(pkgs = c("sf",
                  "opentripplanner",
                  "igraph",
                  "snakecase"),
-        pkgs_gh = c("ITSleeds/osmextract",
-                    "luukvdmeer/sfnetworks@0.4.1"))
+        pkgs_gh = c("ropensci/osmextract",
+                    "luukvdmeer/sfnetworks@v0.4.1"))
 rm(setup_R)
