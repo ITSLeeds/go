@@ -236,8 +236,10 @@ setup_R <- function(rversion = 3.4,
     message("    SKIP: pct package not tested")
   }
   
+  
   # Cyclestreet package
-  if(all(c("cyclestreets") %in% utils::installed.packages()[,"Package"] )){
+  if(all(c("cyclestreets") %in% utils::installed.packages()[,"Package"]  & 
+         ("cyclestreets" %in% pkgs) )){
     if(nchar(Sys.getenv("CYCLESTREETS")) > 0){
       message("    PASS: Cyclestreets key found")
     }else{
