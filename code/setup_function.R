@@ -46,6 +46,10 @@ setup_R <- function(rversion = 3.4,
     pkgs_gh_nm = sapply(pkgs_gh_nm, function(x){
       x[length(x)]
     })
+    pkgs_gh_nm = strsplit(pkgs_gh_nm, "@")
+    pkgs_gh_nm = sapply(pkgs_gh_nm, function(x){
+      x[1]
+    })
   } else {
     pkgs_gh_nm = NULL
   }
