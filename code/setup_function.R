@@ -1,6 +1,6 @@
-setup_R <- function(rversion = 3.4,
+setup_R <- function(rversion = 3.5,
                     pkgs = c("sf"),
-                    pkgs_gh = c(),
+                    pkgs_gh = c("luukvdmeer/sfnetworks@0.4.1"),
                     ram_warn = 4000
 ){
   
@@ -100,7 +100,7 @@ setup_R <- function(rversion = 3.4,
     }else{
       stop("    Unable to install pkgbuild try running install.packages('pkgbuild')")
     }
-  
+    
     if(pkgbuild::find_rtools()){
       message("    PASS: RTools is installed")
     }else{
@@ -117,6 +117,16 @@ setup_R <- function(rversion = 3.4,
   }
   
   # Check for RStudio
+  if(!"rstudioapi" %in% utils::installed.packages()[,"Package"]){
+    utils::install.packages("rstudioapi", quiet = TRUE)
+  }
+  
+  if("rstudioapi" %in% utils::installed.packages()[,"Package"]){
+    message("    PASS: rstudioapi is installed")
+  }else{
+    stop("    Unable to install rstudioapi try running install.packages('pkgbuild')")
+  }
+  t
   if(rstudioapi::isAvailable()){
     message("    PASS: You are using RStudio") 
   }else{
