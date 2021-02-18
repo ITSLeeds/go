@@ -14,7 +14,7 @@ setup_R(pkgs = c("sf",
                  "osmextract",
                  "nycflights13",
                  "snakecase"),
-        pkgs_gh = c("luukvdmeer/sfnetworks@0.4.1",
+        pkgs_gh = c("luukvdmeer/sfnetworks@v0.4.1",
                     "nowosad/spDataLarge",
                     "ITSLeeds/od",
                     "a-b-street/abstr"))
