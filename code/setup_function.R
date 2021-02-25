@@ -116,6 +116,17 @@ setup_R <- function(rversion = 3.5,
     message("    PASS: RTools is not required on your OS")
   }
   
+  # Check for Rlang
+  if(!"rlang" %in% utils::installed.packages()[,"Package"]){
+    utils::install.packages("rlang", quiet = TRUE)
+  }
+  
+  if("rlang" %in% utils::installed.packages()[,"Package"]){
+    message("    PASS: rlang is installed")
+  }else{
+    stop("    Unable to install rlang try running install.packages('rlang')")
+  }
+  
   # Check for RStudio
   if(!"rstudioapi" %in% utils::installed.packages()[,"Package"]){
     utils::install.packages("rstudioapi", quiet = TRUE)
@@ -124,9 +135,9 @@ setup_R <- function(rversion = 3.5,
   if("rstudioapi" %in% utils::installed.packages()[,"Package"]){
     message("    PASS: rstudioapi is installed")
   }else{
-    stop("    Unable to install rstudioapi try running install.packages('pkgbuild')")
+    stop("    Unable to install rstudioapi try running install.packages('rstudioapi')")
   }
-  t
+  
   if(rstudioapi::isAvailable()){
     message("    PASS: You are using RStudio") 
   }else{
