@@ -16,6 +16,5 @@ setup_R(pkgs = c("sf",
                  "snakecase",
                  "sfnetworks",
                  "od"),
-        pkgs_gh = c("nowosad/spDataLarge"),
         rversion = 4.0)
 rm(setup_R)
