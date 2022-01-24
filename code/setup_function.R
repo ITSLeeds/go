@@ -205,7 +205,8 @@ setup_R <- function(rversion = 4.0,
     new.packages <- pkgs[!(pkgs %in% utils::installed.packages()[,"Package"])]
     if(length(new.packages) > 0){
       message("    Installing ",length(new.packages)," packages")
-      utils::install.packages(new.packages, verbose = FALSE, quiet = TRUE)
+      utils::install.packages(new.packages, verbose = FALSE, quiet = TRUE,
+                              type = "binary")
     } 
     
     if(all(pkgs %in% utils::installed.packages()[,"Package"])){
@@ -218,12 +219,14 @@ setup_R <- function(rversion = 4.0,
     message("    PASS: No CRAN packages were requested")
   }
   message("    Updating any out of date packages")
-  utils::update.packages(oldPkgs = pkgs, ask = FALSE, quiet = TRUE)
+  utils::update.packages(oldPkgs = pkgs, ask = FALSE, quiet = TRUE,
+                         type = "binary")
   
   # Install Packages Github
   if(length(pkgs_gh) > 0){
     for(i in seq(1, length(pkgs_gh))){
-      remotes::install_github(pkgs_gh[i], quiet = TRUE, upgrade = "always")
+      remotes::install_github(pkgs_gh[i], quiet = TRUE, upgrade = "always",
+                              type = "binary")
     }
     
     if(all(pkgs_gh_nm %in% utils::installed.packages()[,"Package"])){
