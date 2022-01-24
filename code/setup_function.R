@@ -1,4 +1,4 @@
-setup_R <- function(rversion = 3.5,
+setup_R <- function(rversion = 4.0,
                     pkgs = c("sf"),
                     pkgs_gh = c("luukvdmeer/sfnetworks@0.4.1"),
                     ram_warn = 4000
@@ -89,19 +89,7 @@ setup_R <- function(rversion = 3.5,
     }
   }
   
-  # We need rstudioapi to check for RStudio
-  if(!"rstudioapi" %in% utils::installed.packages()[,"Package"]){
-    utils::install.packages("rstudioapi", quiet = TRUE)
-  }
-  
-  if("rstudioapi" %in% utils::installed.packages()[,"Package"]){
-    message("    PASS: rstudioapi is installed")
-  } else {
-    stop("    Unable to install rstudioapi try running install.packages('rstudioapi')")
-  }
-  
-  
-  
+
   # Check for Rtools
   if (.Platform$OS.type == "windows") { 
     if(!"pkgbuild" %in% utils::installed.packages()[,"Package"]){
