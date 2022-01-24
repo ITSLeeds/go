@@ -143,7 +143,7 @@ setup_R <- function(rversion = 4.0,
     message("    PASS: You are using RStudio") 
   }else{
     browseURL("https://www.rstudio.com/products/rstudio/download/")
-    warning("    You are not using RStudio, ITS Courses recommend R Studio, please download and install from https://www.rstudio.com/products/rstudio/download/")
+    message("    WARN: You are not using RStudio, ITS Courses recommend R Studio, please download and install from https://www.rstudio.com/products/rstudio/download/")
   }
   
   # Check RAM
