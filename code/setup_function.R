@@ -1,6 +1,6 @@
 setup_R <- function(rversion = 4.0,
                     pkgs = c("sf"),
-                    pkgs_gh = c("luukvdmeer/sfnetworks@0.4.1"),
+                    pkgs_gh = NULL,
                     ram_warn = 4000
 ){
   
