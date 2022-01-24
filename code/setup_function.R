@@ -1,38 +1,39 @@
-setup_R <- function(rversion = 3.4,
+setup_R <- function(rversion = 3.5,
                     pkgs = c("sf"),
-                    pkgs_gh = c(),
+                    pkgs_gh = c("luukvdmeer/sfnetworks@0.4.1"),
                     ram_warn = 4000
 ){
   
-  message("")
-  message("")
-  message("Welcome to Go: Easy set up for R courses from ITS")
-  message("")
-  message("This code will install packages and run tests to prepare your computer for an ITS Leeds R course")
-  message("If this process is successful you will see the message 'You computer is ready for the ITS Leeds Course'")
-  message("")
   
-  yn <- function(){
-    resp <- readline(prompt = "Do you wish to continue? [Y/n]  ")
-    if(tolower(resp) %in% c("y","yes") | (nchar(resp) == 0)){
-      # Continute
-    } else if (tolower(resp) %in% c("n","no")){
-      stop("User aborted process")
-    } else {
-      message(class(resp))
-      stop("Unknown input aborting process")
-    }
+  responce <- askYesNo(paste0("Welcome to Go: Easy set up for R courses from ITS \n",
+                  "\n",
+                  "This code will install packages and run tests to prepare your computer for an ITS Leeds R course. ",
+                  "If this process is successful you will see the message: \n",
+                  "\n",
+                  "'You computer is ready for the ITS Leeds Course'\n",
+                  "\n",
+                  "Do you wish to begin?"))
+  
+  if(is.na(responce)){
+    responce <- FALSE
   }
   
-  yn()
+  if(!responce){
+    stop("Process aborted by user")
+  }
   
-  message("")
-  message("Before running this script, make sure you have closed all other R sessions and have no packages loaded")
-  message("You can check that you have no packages loaded in RStudio by clicking Session > Restart R")
-  message("You can then rerun this script")
-  message("")
+  responce <- askYesNo(paste0("Before running this script, make sure you have closed all other R sessions and have no packages loaded \n",
+                              "\n",
+                              "You can check that you have no packages loaded in RStudio by clicking Session > Restart R \n",
+                              "You can then rerun this script"))
   
-  yn()
+  if(is.na(responce)){
+    responce <- FALSE
+  }
+  
+  if(!responce){
+    stop("Process aborted by user")
+  }
   
   log <- " "
   
@@ -45,6 +46,10 @@ setup_R <- function(rversion = 3.4,
     pkgs_gh_nm = sapply(pkgs_gh_nm, function(x){
       x[length(x)]
     })
+    pkgs_gh_nm = strsplit(pkgs_gh_nm, "@")
+    pkgs_gh_nm = sapply(pkgs_gh_nm, function(x){
+      x[1]
+    })
   } else {
     pkgs_gh_nm = NULL
   }
@@ -53,11 +58,6 @@ setup_R <- function(rversion = 3.4,
   if(any(pkgs_gh_nm %in% pkgs)){
     stop("Duplicated packages requested from CRAN and GitHub")
   }
-  
-  
-  # if(any(pkgs_gh %in% pkgs)){
-  #   stop("    Duplicated package names requested from CRAN and GitHub")
-  # }
   
   loaded_already <- loadedNamespaces()
   
@@ -113,7 +113,7 @@ setup_R <- function(rversion = 3.4,
     }else{
       stop("    Unable to install pkgbuild try running install.packages('pkgbuild')")
     }
-  
+    
     if(pkgbuild::find_rtools()){
       message("    PASS: RTools is installed")
     }else{
@@ -129,7 +129,28 @@ setup_R <- function(rversion = 3.4,
     message("    PASS: RTools is not required on your OS")
   }
   
+  # Check for Rlang
+  if(!"rlang" %in% utils::installed.packages()[,"Package"]){
+    utils::install.packages("rlang", quiet = TRUE)
+  }
+  
+  if("rlang" %in% utils::installed.packages()[,"Package"]){
+    message("    PASS: rlang is installed")
+  }else{
+    stop("    Unable to install rlang try running install.packages('rlang')")
+  }
+  
   # Check for RStudio
+  if(!"rstudioapi" %in% utils::installed.packages()[,"Package"]){
+    utils::install.packages("rstudioapi", quiet = TRUE)
+  }
+  
+  if("rstudioapi" %in% utils::installed.packages()[,"Package"]){
+    message("    PASS: rstudioapi is installed")
+  }else{
+    stop("    Unable to install rstudioapi try running install.packages('rstudioapi')")
+  }
+  
   if(rstudioapi::isAvailable()){
     message("    PASS: You are using RStudio") 
   }else{
@@ -249,8 +270,10 @@ setup_R <- function(rversion = 3.4,
     message("    SKIP: pct package not tested")
   }
   
+  
   # Cyclestreet package
-  if(all(c("cyclestreets") %in% utils::installed.packages()[,"Package"] )){
+  if(all(c("cyclestreets") %in% utils::installed.packages()[,"Package"]  & 
+         ("cyclestreets" %in% pkgs) )){
     if(nchar(Sys.getenv("CYCLESTREETS")) > 0){
       message("    PASS: Cyclestreets key found")
     }else{
@@ -309,7 +332,7 @@ setup_R <- function(rversion = 3.4,
   # Won't do all first time so try multiple times
   unload(loaded_already, "down")
   unload(loaded_already, "up")
-  for(i in 1:50){
+  for(i in 1:500){
     unload(loaded_already, "random")
   }
   
