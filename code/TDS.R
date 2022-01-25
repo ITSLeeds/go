@@ -15,6 +15,7 @@ setup_R(pkgs = c("sf",
                  "nycflights13",
                  "snakecase",
                  "sfnetworks",
-                 "od"),
+                 "od",
+                 "osmextract"),
         rversion = 4.0)
 rm(setup_R)
