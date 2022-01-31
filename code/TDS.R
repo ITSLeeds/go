@@ -18,4 +18,4 @@ setup_R(pkgs = c("sf",
                  "od",
                  "osmextract"),
         rversion = 4.0)
-rm(setup_R)
+rm(setup_R) 
