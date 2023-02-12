@@ -16,6 +16,7 @@ setup_R(pkgs = c("sf",
                  "snakecase",
                  "sfnetworks",
                  "od",
+                 "lwgeom",
                  "osmextract"),
         rversion = 4.0)
 rm(setup_R) 
