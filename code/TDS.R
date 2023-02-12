@@ -1,5 +1,5 @@
 # Settings - can be changed
-source("https://github.com/ITSLeeds/go/releases/download/v0.4/setup_function.R")
+source("https://github.com/ITSLeeds/go/releases/download/v0.5/setup_function.R")
 setup_R(pkgs = c("sf",
                  "tidyverse",
                  "tmap",
