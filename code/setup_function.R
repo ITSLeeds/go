@@ -165,7 +165,15 @@ setup_R <- function(rversion = 4.0,
   
   os <- get_os()
   if(os == "windows"){
-    memfree <- utils::memory.limit()
+    memfree <- try(as.numeric(system("wmic ComputerSystem get TotalPhysicalMemory", intern=TRUE)[2]) / (1024^2))
+    if(class(memfree) == "try-error"){
+      log <- c(log,paste0("WARN: RAM check failed, please check you have at least ",ram_warn," MB of RAM"))
+      memfree <- ram_warn + 1
+    }
+    if(is.na(memfree)){
+      log <- c(log,paste0("WARN: RAM check failed, please check you have at least ",ram_warn," MB of RAM"))
+      memfree <- ram_warn + 1
+    }
   } else if (os == "linux") {
     memfree <- try(as.numeric(system("awk '/MemFree/ {print $2}' /proc/meminfo", intern=TRUE)) / 1024)
     if(class(memfree) == "try-error"){
@@ -177,16 +185,6 @@ setup_R <- function(rversion = 4.0,
     memfree <- ram_warn + 1
   }
   
-  
-  # if (.Platform$OS.type == "windows") { 
-  #   memfree <- utils::memory.limit()
-  # }else{
-  #   memfree <- try(as.numeric(system("awk '/MemFree/ {print $2}' /proc/meminfo", intern=TRUE)) / 1024)
-  #   if(class(memfree) == "try-error"){
-  #     log <- c(log,paste0("WARN: RAM check failed, you may be on MAC please check you have at least ",ram_warn," MB of RAM"))
-  #     memfree <- ram_warn + 1
-  #   }
-  # }
   
   if(memfree < 1000){
     stop("    You have less than 1 GB of RAM your computer is not suitable for the course")
